@@ -1,0 +1,8 @@
+name: gilded-rose-kata
+services:
+  php:
+    build:
+      context: .docker
+      target: php
+    volumes:
+      - ./:/var/www/html

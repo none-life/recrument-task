@@ -1,0 +1,20 @@
+#!/bin/bash
+
+PHP_VERSION=$(php -v | tac | tail -n 1 | cut -d " " -f 2 | cut -c 1-3)
+
+if [[ "$PHP_VERSION" == 8.* ]]; then
+  XDEBUG_VERSION=3.3.2
+else
+  XDEBUG_VERSION=3.1.5
+fi
+
+apt install wget -y \
+  && wget -O xdebug.tar.gz https://github.com/xdebug/xdebug/archive/refs/tags/${XDEBUG_VERSION}.tar.gz \
+  && tar -xzf xdebug.tar.gz
+
+cd xdebug-${XDEBUG_VERSION}/
+
+phpize \
+  && ./configure --enable-xdebug \
+  && make \
+  && make install
